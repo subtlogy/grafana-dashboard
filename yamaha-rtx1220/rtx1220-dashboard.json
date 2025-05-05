@@ -1,0 +1,461 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "cekycfo0rvjlsa"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "(kbps)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 13,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifInOctets{ifIndex=\"1\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN1 IN",
+          "range": true,
+          "refId": "LAN1 IN",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekycfo0rvjlsa"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifInOctets{ifIndex=\"2\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN2 IN",
+          "range": true,
+          "refId": "LAN2 IN",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekycfo0rvjlsa"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifInOctets{ifIndex=\"3\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN3 IN",
+          "range": true,
+          "refId": "LAN3 IN",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekycfo0rvjlsa"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifOutOctets{ifIndex=\"1\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN1 OUT",
+          "range": true,
+          "refId": "LAN1 OUT",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekycfo0rvjlsa"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifOutOctets{ifIndex=\"2\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN2 OUT",
+          "range": true,
+          "refId": "LAN2 OUT",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekycfo0rvjlsa"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "rate(ifOutOctets{ifIndex=\"3\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "legendFormat": "LAN3 OUT",
+          "range": true,
+          "refId": "LAN3 OUT",
+          "useBackend": false
+        }
+      ],
+      "title": "Trafic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "cekycfo0rvjlsa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 11,
+        "x": 13,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhCpuUtil1min{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "CPU",
+          "range": true,
+          "refId": "CPU",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhMemoryUtil{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "MEM",
+          "range": true,
+          "refId": "MEM",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhInboxTemperature{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "TEMP",
+          "range": true,
+          "refId": "Temperature",
+          "useBackend": false
+        }
+      ],
+      "title": "Status",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "cekycfo0rvjlsa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 6
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhCpuUtil1min{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "CPU",
+          "range": true,
+          "refId": "CPU",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhMemoryUtil{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "MEM",
+          "range": true,
+          "refId": "MEM",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cekw7vgobq9z4b"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "yrhInboxTemperature{vendor=\"yamaha\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "TEMP",
+          "range": true,
+          "refId": "Temperature",
+          "useBackend": false
+        }
+      ],
+      "title": "Status",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "rtx1220",
+  "uid": "fekw8yfi1v474d",
+  "version": 12
+}
