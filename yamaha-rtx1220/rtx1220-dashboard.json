@@ -1,4 +1,28 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "Prometheus datasource with SNMP exporter metrics for YAMAHA RTX1220",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,447 +39,549 @@
       }
     ]
   },
+  "description": "YAMAHA RTX1220 monitoring dashboard via SNMP exporter. Displays uptime, CPU, memory, temperature, interface status, per-LAN traffic (IN/OUT bps), errors, discards, and historical resource usage.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cekycfo0rvjlsa"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "(kbps)",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 13,
-        "x": 0,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifInOctets{ifIndex=\"1\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN1 IN",
-          "range": true,
-          "refId": "LAN1 IN",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekycfo0rvjlsa"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifInOctets{ifIndex=\"2\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN2 IN",
-          "range": true,
-          "refId": "LAN2 IN",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekycfo0rvjlsa"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifInOctets{ifIndex=\"3\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN3 IN",
-          "range": true,
-          "refId": "LAN3 IN",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekycfo0rvjlsa"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifOutOctets{ifIndex=\"1\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN1 OUT",
-          "range": true,
-          "refId": "LAN1 OUT",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekycfo0rvjlsa"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifOutOctets{ifIndex=\"2\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN2 OUT",
-          "range": true,
-          "refId": "LAN2 OUT",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekycfo0rvjlsa"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "rate(ifOutOctets{ifIndex=\"3\", vendor=\"yamaha\"}[$__rate_interval]) * 8 * 0.001",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": false,
-          "legendFormat": "LAN3 OUT",
-          "range": true,
-          "refId": "LAN3 OUT",
-          "useBackend": false
-        }
-      ],
-      "title": "Trafic",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cekycfo0rvjlsa"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 11,
-        "x": 13,
-        "y": 0
-      },
       "id": 1,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhCpuUtil1min{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "CPU",
-          "range": true,
-          "refId": "CPU",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhMemoryUtil{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "MEM",
-          "range": true,
-          "refId": "MEM",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhInboxTemperature{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "TEMP",
-          "range": true,
-          "refId": "Temperature",
-          "useBackend": false
-        }
-      ],
-      "title": "Status",
-      "type": "gauge"
-    },
-    {
+      "title": "Uptime",
+      "type": "stat",
       "datasource": {
         "type": "prometheus",
-        "uid": "cekycfo0rvjlsa"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "sysUpTime{instance=\"$instance\"} / 100 / 86400",
+          "legendFormat": "__auto",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
+          "unit": "d",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "value": null, "color": "green" }]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      }
+    },
+    {
+      "id": 2,
+      "title": "CPU",
+      "type": "gauge",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhCpuUtil1min{instance=\"$instance\"}",
+          "legendFormat": "CPU",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
           "max": 100,
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
+              { "value": null, "color": "green" },
+              { "value": 70, "color": "yellow" },
+              { "value": 90, "color": "red" }
             ]
           }
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 8,
-        "w": 11,
-        "x": 13,
-        "y": 6
-      },
-      "id": 3,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 3,
+      "title": "Memory",
+      "type": "gauge",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhCpuUtil1min{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "CPU",
-          "range": true,
-          "refId": "CPU",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhMemoryUtil{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "MEM",
-          "range": true,
-          "refId": "MEM",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cekw7vgobq9z4b"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "yrhInboxTemperature{vendor=\"yamaha\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "TEMP",
-          "range": true,
-          "refId": "Temperature",
-          "useBackend": false
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhMemoryUsed{instance=\"$instance\"} / yrhMemorySize{instance=\"$instance\"} * 100",
+          "legendFormat": "Memory",
+          "instant": true,
+          "refId": "A"
         }
       ],
-      "title": "Status",
-      "type": "timeseries"
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 70, "color": "yellow" },
+              { "value": 90, "color": "red" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 4,
+      "title": "Temperature",
+      "type": "gauge",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhInboxTemperature{instance=\"$instance\"}",
+          "legendFormat": "Temp",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "min": 0,
+          "max": 60,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 40, "color": "yellow" },
+              { "value": 50, "color": "red" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 5,
+      "title": "Interface status",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 3, "w": 24, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "ifOperStatus{instance=\"$instance\", ifDescr=~\"LAN.*\"}",
+          "legendFormat": "{{ifDescr}}",
+          "instant": true,
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "1": { "text": "UP", "color": "green" },
+                "2": { "text": "DOWN", "color": "red" }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "red" },
+              { "value": 1, "color": "green" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      }
+    },
+    {
+      "id": 6,
+      "title": "LAN1 traffic",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 7 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInOctets{instance=\"$instance\", ifDescr=\"LAN1\"}[$__rate_interval]) * 8",
+          "legendFormat": "IN",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "-rate(ifOutOctets{instance=\"$instance\", ifDescr=\"LAN1\"}[$__rate_interval]) * 8",
+          "legendFormat": "OUT",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 20, "axisCenteredZero": true }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 7,
+      "title": "LAN2 traffic",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 7 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInOctets{instance=\"$instance\", ifDescr=\"LAN2\"}[$__rate_interval]) * 8",
+          "legendFormat": "IN",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "-rate(ifOutOctets{instance=\"$instance\", ifDescr=\"LAN2\"}[$__rate_interval]) * 8",
+          "legendFormat": "OUT",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 20, "axisCenteredZero": true }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 8,
+      "title": "LAN3 traffic",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 7 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInOctets{instance=\"$instance\", ifDescr=\"LAN3\"}[$__rate_interval]) * 8",
+          "legendFormat": "IN",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "-rate(ifOutOctets{instance=\"$instance\", ifDescr=\"LAN3\"}[$__rate_interval]) * 8",
+          "legendFormat": "OUT",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 20, "axisCenteredZero": true }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 9,
+      "title": "All interfaces traffic comparison",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 15 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInOctets{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval]) * 8",
+          "legendFormat": "{{ifDescr}} IN",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "-rate(ifOutOctets{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval]) * 8",
+          "legendFormat": "{{ifDescr}} OUT",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 10, "axisCenteredZero": true }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 12,
+      "title": "CPU / memory history",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 23 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhCpuUtil1min{instance=\"$instance\"}",
+          "legendFormat": "CPU %",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhMemoryUsed{instance=\"$instance\"} / yrhMemorySize{instance=\"$instance\"} * 100",
+          "legendFormat": "Memory %",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 10 }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Temperature history",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 23 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "yrhInboxTemperature{instance=\"$instance\"}",
+          "legendFormat": "Temperature",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "min": 0,
+          "max": 60,
+          "custom": { "drawStyle": "line", "lineWidth": 1, "fillOpacity": 10 },
+          "color": { "mode": "fixed", "fixedColor": "orange" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 40, "color": "yellow" },
+              { "value": 50, "color": "red" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": { "mode": "multi" },
+        "legend": { "calcs": ["mean", "max", "lastNotNull"], "displayMode": "table", "placement": "bottom" }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Errors (rate/s)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 30 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval])",
+          "legendFormat": "{{ifDescr}} IN err",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval])",
+          "legendFormat": "{{ifDescr}} OUT err",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "pps",
+          "custom": { "drawStyle": "bars", "lineWidth": 1, "fillOpacity": 50 },
+          "color": { "mode": "fixed", "fixedColor": "red" }
+        },
+        "overrides": []
+      },
+      "options": { "tooltip": { "mode": "multi" } }
+    },
+    {
+      "id": 11,
+      "title": "Discards (rate/s)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 30 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval])",
+          "legendFormat": "{{ifDescr}} IN disc",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifDescr=~\"LAN.*\"}[$__rate_interval])",
+          "legendFormat": "{{ifDescr}} OUT disc",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "pps",
+          "custom": { "drawStyle": "bars", "lineWidth": 1, "fillOpacity": 50 },
+          "color": { "mode": "fixed", "fixedColor": "orange" }
+        },
+        "overrides": []
+      },
+      "options": { "tooltip": { "mode": "multi" } }
+    },
+    {
+      "id": 14,
+      "title": "Total error / discard counters",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "gridPos": { "h": 4, "w": 24, "x": 0, "y": 37 },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "ifInErrors{instance=\"$instance\", ifDescr=~\"LAN.*\"}",
+          "legendFormat": "{{ifDescr}} IN errors",
+          "instant": true,
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "ifOutErrors{instance=\"$instance\", ifDescr=~\"LAN.*\"}",
+          "legendFormat": "{{ifDescr}} OUT errors",
+          "instant": true,
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "ifInDiscards{instance=\"$instance\", ifDescr=~\"LAN.*\"}",
+          "legendFormat": "{{ifDescr}} IN discards",
+          "instant": true,
+          "refId": "C"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+          "expr": "ifOutDiscards{instance=\"$instance\", ifDescr=~\"LAN.*\"}",
+          "legendFormat": "{{ifDescr}} OUT discards",
+          "instant": true,
+          "refId": "D"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 1, "color": "yellow" }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value_and_name",
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      }
     }
   ],
   "preload": false,
-  "refresh": "auto",
+  "refresh": "30s",
   "schemaVersion": 41,
-  "tags": [],
+  "tags": ["network", "snmp", "yamaha", "rtx1220"],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "192.168.100.1",
+          "value": "192.168.100.1"
+        },
+        "description": "SNMP target IP address of RTX1220",
+        "label": "Instance",
+        "name": "instance",
+        "options": [
+          {
+            "selected": true,
+            "text": "192.168.100.1",
+            "value": "192.168.100.1"
+          }
+        ],
+        "query": "192.168.100.1",
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "rtx1220",
-  "uid": "fekw8yfi1v474d",
-  "version": 12
+  "title": "YAMAHA RTX1220"
 }
