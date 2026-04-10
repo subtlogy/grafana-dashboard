@@ -1,0 +1,1781 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "Prometheus datasource with SNMP exporter metrics for Allied Telesis switches",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "d"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "sysUpTime{instance=\"$instance\"} / 100 / 86400",
+          "instant": true,
+          "legendFormat": "__auto",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "text": "SHUTDOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "UP"
+                },
+                "2": {
+                  "color": "red",
+                  "text": "DOWN"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 16,
+        "x": 8,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "1:{{ifDescr}}",
+          "instant": true,
+          "refId": "D1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5001\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "1",
+          "instant": true,
+          "refId": "N1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "3:{{ifDescr}}",
+          "instant": true,
+          "refId": "D3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5003\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "3",
+          "instant": true,
+          "refId": "N3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "5:{{ifDescr}}",
+          "instant": true,
+          "refId": "D5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5005\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "5",
+          "instant": true,
+          "refId": "N5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "7:{{ifDescr}}",
+          "instant": true,
+          "refId": "D7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5007\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "7",
+          "instant": true,
+          "refId": "N7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "9:{{ifDescr}}",
+          "instant": true,
+          "refId": "D9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5009\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "9",
+          "instant": true,
+          "refId": "N9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "11:{{ifDescr}}",
+          "instant": true,
+          "refId": "D11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5011\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "11",
+          "instant": true,
+          "refId": "N11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "13:{{ifDescr}}",
+          "instant": true,
+          "refId": "D13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5013\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "13",
+          "instant": true,
+          "refId": "N13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "15:{{ifDescr}}",
+          "instant": true,
+          "refId": "D15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5015\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "15",
+          "instant": true,
+          "refId": "N15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "2:{{ifDescr}}",
+          "instant": true,
+          "refId": "D2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5002\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "2",
+          "instant": true,
+          "refId": "N2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "4:{{ifDescr}}",
+          "instant": true,
+          "refId": "D4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5004\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "4",
+          "instant": true,
+          "refId": "N4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "6:{{ifDescr}}",
+          "instant": true,
+          "refId": "D6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5006\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "6",
+          "instant": true,
+          "refId": "N6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "8:{{ifDescr}}",
+          "instant": true,
+          "refId": "D8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5008\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "8",
+          "instant": true,
+          "refId": "N8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "10:{{ifDescr}}",
+          "instant": true,
+          "refId": "D10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5010\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "10",
+          "instant": true,
+          "refId": "N10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "12:{{ifDescr}}",
+          "instant": true,
+          "refId": "D12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5012\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "12",
+          "instant": true,
+          "refId": "N12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "14:{{ifDescr}}",
+          "instant": true,
+          "refId": "D14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5014\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "14",
+          "instant": true,
+          "refId": "N14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr!~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr!~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr!~\"port1.0.*\"}",
+          "legendFormat": "16:{{ifDescr}}",
+          "instant": true,
+          "refId": "D16"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "(ifAdminStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr=~\"port1.0.*\"} == 2) * 0 or (ifAdminStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr=~\"port1.0.*\"} == 1) * ifOperStatus{instance=\"$instance\", ifIndex=\"5016\", ifDescr=~\"port1.0.*\"}",
+          "legendFormat": "16",
+          "instant": true,
+          "refId": "N16"
+        }
+      ],
+      "title": "Port status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.1 IN",
+          "refId": "IN1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.1 OUT",
+          "refId": "OUT1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.2 IN",
+          "refId": "IN2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.2 OUT",
+          "refId": "OUT2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.3 IN",
+          "refId": "IN3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.3 OUT",
+          "refId": "OUT3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.4 IN",
+          "refId": "IN4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.4 OUT",
+          "refId": "OUT4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.5 IN",
+          "refId": "IN5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.5 OUT",
+          "refId": "OUT5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.6 IN",
+          "refId": "IN6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.6 OUT",
+          "refId": "OUT6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.7 IN",
+          "refId": "IN7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.7 OUT",
+          "refId": "OUT7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.8 IN",
+          "refId": "IN8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.8 OUT",
+          "refId": "OUT8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.9 IN",
+          "refId": "IN9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.9 OUT",
+          "refId": "OUT9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.10 IN",
+          "refId": "IN10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.10 OUT",
+          "refId": "OUT10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.11 IN",
+          "refId": "IN11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.11 OUT",
+          "refId": "OUT11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.12 IN",
+          "refId": "IN12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.12 OUT",
+          "refId": "OUT12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.13 IN",
+          "refId": "IN13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.13 OUT",
+          "refId": "OUT13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.14 IN",
+          "refId": "IN14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.14 OUT",
+          "refId": "OUT14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.15 IN",
+          "refId": "IN15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.15 OUT",
+          "refId": "OUT15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.16 IN",
+          "refId": "IN16"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "port1.0.16 OUT",
+          "refId": "OUT16"
+        }
+      ],
+      "title": "Port traffic (all ports)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifHCInOctets{instance=\"$instance\", ifName=~\"po[0-9]+|sa[0-9]+|vlan.*\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "{{ifName}} IN",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "-rate(ifHCOutOctets{instance=\"$instance\", ifName=~\"po[0-9]+|sa[0-9]+|vlan.*\", ifName!=\"\"}[$__rate_interval]) * 8",
+          "legendFormat": "{{ifName}} OUT",
+          "refId": "B"
+        }
+      ],
+      "title": "VLAN / LAG traffic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.1 IN err",
+          "refId": "EI1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.1 OUT err",
+          "refId": "EO1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.2 IN err",
+          "refId": "EI2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.2 OUT err",
+          "refId": "EO2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.3 IN err",
+          "refId": "EI3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.3 OUT err",
+          "refId": "EO3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.4 IN err",
+          "refId": "EI4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.4 OUT err",
+          "refId": "EO4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.5 IN err",
+          "refId": "EI5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.5 OUT err",
+          "refId": "EO5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.6 IN err",
+          "refId": "EI6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.6 OUT err",
+          "refId": "EO6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.7 IN err",
+          "refId": "EI7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.7 OUT err",
+          "refId": "EO7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.8 IN err",
+          "refId": "EI8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.8 OUT err",
+          "refId": "EO8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.9 IN err",
+          "refId": "EI9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.9 OUT err",
+          "refId": "EO9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.10 IN err",
+          "refId": "EI10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.10 OUT err",
+          "refId": "EO10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.11 IN err",
+          "refId": "EI11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.11 OUT err",
+          "refId": "EO11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.12 IN err",
+          "refId": "EI12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.12 OUT err",
+          "refId": "EO12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.13 IN err",
+          "refId": "EI13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.13 OUT err",
+          "refId": "EO13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.14 IN err",
+          "refId": "EI14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.14 OUT err",
+          "refId": "EO14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.15 IN err",
+          "refId": "EI15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.15 OUT err",
+          "refId": "EO15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInErrors{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.16 IN err",
+          "refId": "EI16"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutErrors{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.16 OUT err",
+          "refId": "EO16"
+        }
+      ],
+      "title": "Errors (rate/s)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 23
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.1 IN disc",
+          "refId": "DI1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5001\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.1 OUT disc",
+          "refId": "DO1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.2 IN disc",
+          "refId": "DI2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5002\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.2 OUT disc",
+          "refId": "DO2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.3 IN disc",
+          "refId": "DI3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5003\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.3 OUT disc",
+          "refId": "DO3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.4 IN disc",
+          "refId": "DI4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5004\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.4 OUT disc",
+          "refId": "DO4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.5 IN disc",
+          "refId": "DI5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5005\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.5 OUT disc",
+          "refId": "DO5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.6 IN disc",
+          "refId": "DI6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5006\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.6 OUT disc",
+          "refId": "DO6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.7 IN disc",
+          "refId": "DI7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5007\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.7 OUT disc",
+          "refId": "DO7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.8 IN disc",
+          "refId": "DI8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5008\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.8 OUT disc",
+          "refId": "DO8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.9 IN disc",
+          "refId": "DI9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5009\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.9 OUT disc",
+          "refId": "DO9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.10 IN disc",
+          "refId": "DI10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5010\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.10 OUT disc",
+          "refId": "DO10"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.11 IN disc",
+          "refId": "DI11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5011\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.11 OUT disc",
+          "refId": "DO11"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.12 IN disc",
+          "refId": "DI12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5012\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.12 OUT disc",
+          "refId": "DO12"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.13 IN disc",
+          "refId": "DI13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5013\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.13 OUT disc",
+          "refId": "DO13"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.14 IN disc",
+          "refId": "DI14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5014\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.14 OUT disc",
+          "refId": "DO14"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.15 IN disc",
+          "refId": "DI15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5015\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.15 OUT disc",
+          "refId": "DO15"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifInDiscards{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.16 IN disc",
+          "refId": "DI16"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "rate(ifOutDiscards{instance=\"$instance\", ifIndex=\"5016\", ifName!=\"\"}[$__rate_interval])",
+          "legendFormat": "port1.0.16 OUT disc",
+          "refId": "DO16"
+        }
+      ],
+      "title": "Discards (rate/s)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 42,
+  "tags": [
+    "network",
+    "snmp",
+    "allied-telesis",
+    "xs916mxt"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "192.168.1.1",
+          "value": "192.168.1.1"
+        },
+        "description": "SNMP target IP address of AT-XS916MXT",
+        "label": "Instance",
+        "name": "instance",
+        "options": [
+          {
+            "selected": true,
+            "text": "192.168.1.1",
+            "value": "192.168.1.1"
+          }
+        ],
+        "query": "192.168.1.1",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "AT-XS916MXT",
+  "description": "Allied Telesis XS916MXT monitoring dashboard via SNMP exporter. Displays uptime, port status (UP/DOWN/SHUTDOWN), per-port traffic, VLAN/LAG traffic, errors, and discards."
+}
